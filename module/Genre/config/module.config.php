@@ -49,7 +49,7 @@ return [
                         'id'     => '[0-9]+',
                     ],
                     'defaults' => [
-                        'controller' => Controller\GenreController::class,
+                        'controller' => GenreController::class,
                         'action'     => 'index'
                     ],
                 ],

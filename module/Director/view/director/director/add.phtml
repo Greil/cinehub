@@ -1,0 +1,57 @@
+<?php
+$title = 'Ajouter un réalisateur';
+$this->headTitle($title);
+?>
+
+<h1>
+    <?= $this->escapeHtml($title) ?>
+</h1>
+
+<?php
+/** @var \Zend\Form\Form $firstname */
+$firstname = $this->form->get('director')->get('firstname');
+$firstname->setAttribute('class', 'form-control');
+$firstname->setAttribute('placeholder', 'Prénom');
+
+/** @var \Zend\Form\Form $lastname */
+$lastname = $this->form->get('director')->get('lastname');
+$lastname->setAttribute('class', 'form-control');
+$lastname->setAttribute('placeholder', 'Nom');
+
+/** @var \Zend\Form\Form $birthdate */
+$birthdate = $this->form->get('director')->get('birthDate');
+$birthdate->setAttribute('class', 'form-control');
+$birthdate->setAttribute('placeholder', 'Date de naissance');
+
+/** @var \Zend\Form\Form $submit */
+$submit = $this->form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$this->form->setAttribute('action', $this->url('genre', ['action' => 'add']));
+$this->form->prepare();
+
+echo $this->form()->openTag($this->form);
+?>
+
+<div class="form-group">
+    <?= $this->formLabel($firstname) ?>
+    <?= $this->formElement($firstname) ?>
+    <?= $this->formElementErrors()->render($firstname, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group">
+    <?= $this->formLabel($lastname) ?>
+    <?= $this->formElement($lastname) ?>
+    <?= $this->formElementErrors()->render($lastname, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group">
+    <?= $this->formLabel($birthdate) ?>
+    <?= $this->formElement($birthdate) ?>
+    <?= $this->formElementErrors()->render($birthdate, ['class' => 'help-block']) ?>
+</div>
+
+<?php
+echo $this->formSubmit($submit);
+echo $this->formHidden($this->form->get('director')->get('id'));
+echo $this->form()->closeTag();

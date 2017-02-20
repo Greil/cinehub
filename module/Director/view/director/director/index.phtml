@@ -1,0 +1,40 @@
+<?php
+$title = 'Liste des réalisateurs';
+$this->headTitle($title);
+?>
+
+<h1>
+    <?= $this->escapeHtml($title) ?>
+</h1>
+
+<p>
+    <a href="<?= $this->url('director', ['action' => 'add']) ?>">
+        Ajouter un réalisateur
+    </a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Date de naissance</th>
+    </tr>
+    <?php foreach($this->directors as $director) : ?>
+        <?php /** @var \Director\Entity\Director $director */ ?>
+        <tr>
+            <td>
+                <?= $this->escapeHtml($director->getFirstname()) ?>
+            </td>
+            <td>
+                <?= $this->escapeHtml($director->getLastname()) ?>
+            </td>
+            <td>
+                <?= $this->escapeHtml($director->getBirthDate()) ?>
+            </td>
+            <td>
+                <a href="<?= $this->url('director', ['action' => 'edit', 'id' => $director->getId()]) ?>">Modifier</a>
+                <a href="<?= $this->url('director', ['action' => 'delete', 'id' => $director->getId()]) ?>">Supprimer</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>

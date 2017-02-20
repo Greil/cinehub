@@ -31,7 +31,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Genre\\": "module/Genre/src/"
+            "Genre\\": "module/Genre/src/",
+            "Director\\": "module/Director/src/"
         }
     },
     "extra": [],

@@ -59,7 +59,6 @@ class GenreController extends AbstractActionController
                 /** @var Genre $genre */
                 $genre = $this->addGenreForm->getData();
                 $this->genreService->create($genre);
-
                 return $this->redirect()->toRoute('genre');
             }
         }
