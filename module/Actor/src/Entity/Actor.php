@@ -10,6 +10,7 @@ namespace Actor\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Film\Entity\Film;
 
 /**
  * Class Actor
@@ -46,6 +47,13 @@ class Actor
      * @ORM\Column(name="birthdate", type="datetime")
      */
     private $birthDate;
+
+    /**
+     * @var Film[]
+     *
+     * @ORM\ManyToMany(targetEntity="Film\Entity\Film", mappedBy="actors")
+     */
+    private $films;
 
 
 
@@ -111,5 +119,21 @@ class Actor
     public function setBirthDate(DateTime $birthDate)
     {
         $this->birthDate = $birthDate;
+    }
+
+    /**
+     * @return Film[]
+     */
+    public function getFilms()
+    {
+        return $this->films;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullname()
+    {
+        return $this->firstname . " " . $this->lastname;
     }
 }

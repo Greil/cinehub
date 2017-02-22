@@ -40,6 +40,7 @@ class AddFilmForm extends Form
                     'title',
                     'genre',
                     'director',
+                    'actors',
                     'note',
                     'releaseYear',
                     'synopsis'

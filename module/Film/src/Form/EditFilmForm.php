@@ -40,6 +40,7 @@ class EditFilmForm extends Form
                     'title',
                     'genre',
                     'director',
+                    'actors',
                     'note',
                     'releaseYear',
                     'synopsis'

@@ -9,7 +9,10 @@ declare(strict_types = 1);
 
 namespace Film\Entity;
 
+use Actor\Entity\Actor;
 use Director\Entity\Director;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Genre\Entity\Genre;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -70,10 +73,20 @@ class Film
      */
     private $genre;
 
+    /**
+     * @var Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Actor\Entity\Actor", inversedBy="films")
+     */
+    private $actors;
 
+    public function __construct()
+    {
+        $this->actors = new ArrayCollection();
+    }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -182,5 +195,32 @@ class Film
     public function setDirector(Director $director)
     {
         $this->director = $director;
+    }
+
+    public function getActors() : Collection
+    {
+        return $this->actors;
+    }
+
+    public function addActors(Collection $actors)
+    {
+        foreach($actors as $actor) {
+            if (!$actor instanceof Actor) {
+                throw new \InvalidArgumentException("Pas un acteur !");
+            }
+
+            $this->actors->add($actor);
+        }
+    }
+
+    public function removeActors(Collection $actors)
+    {
+        foreach($actors as $actor) {
+            if (!$actor instanceof Actor) {
+                throw new \InvalidArgumentException("Pas un acteur !");
+            }
+
+            $this->actors->removeElement($actor);
+        }
     }
 }

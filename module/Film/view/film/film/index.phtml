@@ -14,6 +14,7 @@ $this->headTitle($title);
         <th>Titre</th>
         <th>Genre</th>
         <th>Réalisateur</th>
+        <th>Casting</th>
         <th>Note</th>
         <th>Année</th>
         <th>Synopsis</th>
@@ -24,6 +25,15 @@ $this->headTitle($title);
             <td><?= $this->escapeHtml($film->getTitle()) ?></td>
             <td><?= $this->escapeHtml($film->getGenre()->getLabel()) ?></td>
             <td><?= $this->escapeHtml($film->getDirector()->getFullname()) ?></td>
+            <td>
+                <?php
+                if (!empty($film->getActors())) {
+                    foreach($film->getActors() as $actor) {
+                        echo $actor->getFullname() . '<br/>';
+                    }
+                }
+                ?>
+            </td>
             <td><?= $this->escapeHtml($film->getNote()) ?></td>
             <td><?= $this->escapeHtml($film->getReleaseYear()) ?></td>
             <td><?= $this->escapeHtml($film->getSynopsis()) ?></td>

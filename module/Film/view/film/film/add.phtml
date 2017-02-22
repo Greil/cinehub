@@ -21,6 +21,10 @@ $genre->setAttribute('class', 'form-control');
 $director = $this->form->get('film')->get('director');
 $director->setAttribute('class', 'form-control');
 
+/** @var \Zend\Form\Form $actors */
+$actors = $this->form->get('film')->get('actors');
+$actors->setAttribute('class', 'form-control');
+
 /** @var \Zend\Form\Form $note */
 $note = $this->form->get('film')->get('note');
 $note->setAttribute('class', 'form-control');
@@ -62,6 +66,12 @@ echo $this->form()->openTag($this->form);
         <?= $this->formLabel($director) ?>
         <?= $this->formElement($director) ?>
         <?= $this->formElementErrors()->render($director, ['class' => 'help-block']) ?>
+    </div>
+
+    <div class="form-group">
+        <?= $this->formLabel($actors) ?>
+        <?= $this->formElement($actors) ?>
+        <?= $this->formElementErrors()->render($actors, ['class' => 'help-block']) ?>
     </div>
 
     <div class="form-group">

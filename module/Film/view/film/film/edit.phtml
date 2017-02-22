@@ -3,9 +3,7 @@ $title = 'Modification du film';
 $this->headTitle($title);
 ?>
 
-    <h1>
-        <?= $this->escapeHtml($title) ?>
-    </h1>
+    <h1><?= $this->escapeHtml($title) ?></h1>
 
 <?php
 /** @var \Zend\Form\Form $title */
@@ -20,6 +18,10 @@ $genre->setAttribute('class', 'form-control');
 /** @var \Zend\Form\Form $director */
 $director = $this->form->get('film')->get('director');
 $director->setAttribute('class', 'form-control');
+
+/** @var \Zend\Form\Form $actors */
+$actors = $this->form->get('film')->get('actors');
+$actors->setAttribute('class', 'form-control');
 
 /** @var \Zend\Form\Form $note */
 $note = $this->form->get('film')->get('note');
@@ -62,6 +64,12 @@ echo $this->form()->openTag($this->form);
         <?= $this->formLabel($director) ?>
         <?= $this->formElement($director) ?>
         <?= $this->formElementErrors()->render($director, ['class' => 'help-block']) ?>
+    </div>
+
+    <div class="form-group">
+        <?= $this->formLabel($actors) ?>
+        <?= $this->formElement($actors) ?>
+        <?= $this->formElementErrors()->render($actors, ['class' => 'help-block']) ?>
     </div>
 
     <div class="form-group">

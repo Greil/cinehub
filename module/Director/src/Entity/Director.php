@@ -10,6 +10,7 @@ namespace Director\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Film\Entity\Film;
 
 /**
  * Class Director
@@ -49,6 +50,7 @@ class Director
 
     /**
      * @ORM\OneToMany(targetEntity="Film\Entity\Film", mappedBy="director")
+     * @ORM\OrderBy({"releaseYear" = "ASC"})
      */
     private $films;
 
@@ -118,6 +120,9 @@ class Director
         $this->birthDate = $birthDate;
     }
 
+    /**
+     * @return Film[]
+     */
     public function getFilms()
     {
         return $this->films;

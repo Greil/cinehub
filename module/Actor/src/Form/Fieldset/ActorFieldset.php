@@ -69,7 +69,7 @@ class ActorFieldset extends Fieldset implements InputFilterProviderInterface
                 'name'    => 'birthDate',
                 'type'    => DateTime::class,
                 'options' => [
-                    'label'  => 'Date de naissance',
+                    'label'  => 'Date de naissance (dd-mm-yyyy)',
                     'format' => 'd-m-Y'
                 ]
             ]

@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Film\Form\Fieldset;
 
+use Actor\Entity\Actor;
 use Director\Entity\Director;
 use Doctrine\ORM\EntityManager;
 use DoctrineModule\Form\Element\ObjectSelect;
@@ -86,6 +87,26 @@ class FilmFieldset extends Fieldset implements InputFilterProviderInterface
                     'is_method'      => true,
                     'find_method'    => [
                         'name' => 'findAllDirectors'
+                    ],
+                    'property'           => 'fullname',
+                    'display_empty_item' => true,
+                ]
+            ]
+        );
+
+        $this->add(
+            [
+                'name'       => 'actors',
+                'type'       => ObjectSelect::class,
+                'attributes' => [
+                    'multiple' => 'multiple'
+                ],
+                'options' => [
+                    'label'        => 'Acteurs',
+                    'target_class' => Actor::class,
+                    'is_method'    => true,
+                    'find_method'  => [
+                        'name' => 'findAllActors'
                     ],
                     'property'           => 'fullname',
                     'display_empty_item' => true,
