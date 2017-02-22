@@ -6,9 +6,9 @@
  */
 declare(strict_types = 1);
 
-namespace Director\Form\Fieldset;
+namespace Actor\Form\Fieldset;
 
-use Director\Entity\Director;
+use Actor\Entity\Actor;
 use Doctrine\ORM\EntityManager;
 use Zend\Filter\StringTrim;
 use Zend\Filter\StripTags;
@@ -21,7 +21,7 @@ use Zend\InputFilter\InputFilterProviderInterface;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 use Zend\Validator\StringLength;
 
-class DirectorFieldset extends Fieldset implements InputFilterProviderInterface
+class ActorFieldset extends Fieldset implements InputFilterProviderInterface
 {
 
     private $objectManager;
@@ -35,7 +35,7 @@ class DirectorFieldset extends Fieldset implements InputFilterProviderInterface
     public function init()
     {
         $this->setHydrator(new DoctrineHydrator($this->objectManager))
-            ->setObject(new Director());
+            ->setObject(new Actor());
 
         $this->add(
             [

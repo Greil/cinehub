@@ -1,29 +1,32 @@
 <?php
 /**
  * User: remi_k
- * Date: 20/02/2017
- * Time: 15:07
+ * Date: 21/02/2017
+ * Time: 16:46
  */
 declare(strict_types = 1);
 
-namespace Director\Form\Fieldset;
+
+namespace Film\Form\Fieldset;
 
 use Director\Entity\Director;
 use Doctrine\ORM\EntityManager;
+use DoctrineModule\Form\Element\ObjectSelect;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
+use Film\Entity\Film;
+use Genre\Entity\Genre;
 use Zend\Filter\StringTrim;
 use Zend\Filter\StripTags;
 use Zend\Filter\ToInt;
-use Zend\Form\Element\DateTime;
 use Zend\Form\Element\Hidden;
 use Zend\Form\Element\Text;
+use Zend\Form\Element\Textarea;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
-use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 use Zend\Validator\StringLength;
 
-class DirectorFieldset extends Fieldset implements InputFilterProviderInterface
+class FilmFieldset extends Fieldset implements InputFilterProviderInterface
 {
-
     private $objectManager;
 
     public function __construct(EntityManager $objectManager)
@@ -35,7 +38,7 @@ class DirectorFieldset extends Fieldset implements InputFilterProviderInterface
     public function init()
     {
         $this->setHydrator(new DoctrineHydrator($this->objectManager))
-            ->setObject(new Director());
+            ->setObject(new Film());
 
         $this->add(
             [
@@ -46,31 +49,76 @@ class DirectorFieldset extends Fieldset implements InputFilterProviderInterface
 
         $this->add(
             [
-                'name'    => 'firstname',
+                'name'    => 'title',
                 'type'    => Text::class,
                 'options' => [
-                    'label' => 'Prénom'
+                    'label' => 'Titre'
                 ]
             ]
         );
 
         $this->add(
             [
-                'name'    => 'lastname',
-                'type'    => Text::class,
+                'name'    => 'genre',
+                'type'    => ObjectSelect::class,
                 'options' => [
-                    'label' => 'Nom'
+                    'label'          => 'Genre',
+                    'object_manager' => $this->objectManager,
+                    'target_class'   => Genre::class,
+                    'is_method'      => true,
+                    'find_method'    => [
+                        'name' => 'findAllGenres'
+                    ],
+                    'property'           => 'label',
+                    'display_empty_item' => true,
                 ]
             ]
         );
 
         $this->add(
             [
-                'name'    => 'birthDate',
-                'type'    => DateTime::class,
+                'name'    => 'director',
+                'type'    => ObjectSelect::class,
                 'options' => [
-                    'label'  => 'Date de naissance',
-                    'format' => 'd-m-Y'
+                    'label'          => 'Réalisateur',
+                    'object_manager' => $this->objectManager,
+                    'target_class'   => Director::class,
+                    'is_method'      => true,
+                    'find_method'    => [
+                        'name' => 'findAllDirectors'
+                    ],
+                    'property'           => 'fullname',
+                    'display_empty_item' => true,
+                ]
+            ]
+        );
+
+        $this->add(
+            [
+                'name'    => 'note',
+                'type'    => Text::class,
+                'options' => [
+                    'label' => 'Note (/5)'
+                ]
+            ]
+        );
+
+        $this->add(
+            [
+                'name'    => 'releaseYear',
+                'type'    => Text::class,
+                'options' => [
+                    'label' => 'Année de sortie'
+                ]
+            ]
+        );
+
+        $this->add(
+            [
+                'name'    => 'synopsis',
+                'type'    => Textarea::class,
+                'options' => [
+                    'label' => 'Synopsis'
                 ]
             ]
         );
@@ -91,11 +139,11 @@ class DirectorFieldset extends Fieldset implements InputFilterProviderInterface
                     ['name' => ToInt::class]
                 ]
             ],
-            'firstname' => [
+            'title' => [
                 'required' => true,
                 'filters'  => [
                     ['name' => StripTags::class],
-                    ['name' => StringTrim::class],
+                    ['name' => StringTrim::class]
                 ],
                 'validators' => [
                     [
@@ -103,12 +151,18 @@ class DirectorFieldset extends Fieldset implements InputFilterProviderInterface
                         'options' => [
                             'encoding' => 'UTF-8',
                             'min'      => 1,
-                            'max'      => 50
+                            'max'      => 100
                         ]
                     ]
                 ]
             ],
-            'lastname' => [
+            'releaseYear' => [
+                'required' => true,
+                'filters'  => [
+                    ['name' => ToInt::class]
+                ]
+            ],
+            'synopsis' => [
                 'required' => true,
                 'filters'  => [
                     ['name' => StripTags::class],
@@ -119,20 +173,7 @@ class DirectorFieldset extends Fieldset implements InputFilterProviderInterface
                         'name'    => StringLength::class,
                         'options' => [
                             'encoding' => 'UTF-8',
-                            'min' => 1,
-                            'max' => 50
-                        ]
-                    ]
-                ]
-            ],
-            'birthDate' => [
-                'required'   => true,
-                'validators' => [
-                    [
-                        'name'    => \Zend\I18n\Validator\DateTime::class,
-                        'options' => [
-                            'pattern' => 'd-m-Y',
-                            'message' => 'Le format de la date doit être "d-m-Y"',
+                            'min'      => 1
                         ]
                     ]
                 ]

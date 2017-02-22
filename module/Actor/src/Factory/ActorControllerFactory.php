@@ -7,20 +7,20 @@
 declare(strict_types = 1);
 
 
-namespace Director\Factory;
+namespace Actor\Factory;
 
 
-use Director\Controller\DirectorController;
-use Director\Form\AddDirectorForm;
-use Director\Form\EditDirectorForm;
-use Director\Service\DirectorService;
+use Actor\Controller\ActorController;
+use Actor\Form\AddActorForm;
+use Actor\Form\EditActorForm;
+use Actor\Service\ActorService;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class DirectorControllerFactory implements FactoryInterface
+class ActorControllerFactory implements FactoryInterface
 {
 
     /**
@@ -38,13 +38,13 @@ class DirectorControllerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /** @var DirectorService $directorService */
-        $directorService = $container->get(DirectorService::class);
-        /** @var AddDirectorForm $addDirectorForm */
-        $addDirectorForm = $container->get('FormElementManager')->get(AddDirectorForm::class);
-        /** @var EditDirectorForm $editDirectorForm */
-        $editDirectorForm = $container->get('FormElementManager')->get(EditDirectorForm::class);
+        /** @var ActorService $actorService */
+        $actorService = $container->get(ActorService::class);
+        /** @var AddActorForm $addActorForm */
+        $addActorForm = $container->get('FormElementManager')->get(AddActorForm::class);
+        /** @var EditActorForm $editActorForm */
+        $editActorForm = $container->get('FormElementManager')->get(EditActorForm::class);
 
-        return new DirectorController($directorService, $addDirectorForm, $editDirectorForm);
+        return new ActorController($actorService, $addActorForm, $editActorForm);
     }
 }

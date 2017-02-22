@@ -6,18 +6,18 @@
  */
 declare(strict_types = 1);
 
-namespace Director\Entity;
+namespace Actor\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Director
- * @package Director\Entity
- * @ORM\Entity(repositoryClass="Director\Repository\DirectorRepository")
- * @ORM\Table(name="realisateur")
+ * Class Actor
+ * @package Actor\Entity
+ * @ORM\Entity(repositoryClass="Actor\Repository\ActorRepository")
+ * @ORM\Table(name="acteur")
  */
-class Director
+class Actor
 {
     /**
      * @ORM\Id
@@ -46,11 +46,6 @@ class Director
      * @ORM\Column(name="birthdate", type="datetime")
      */
     private $birthDate;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Film\Entity\Film", mappedBy="director")
-     */
-    private $films;
 
 
 
@@ -116,18 +111,5 @@ class Director
     public function setBirthDate(DateTime $birthDate)
     {
         $this->birthDate = $birthDate;
-    }
-
-    public function getFilms()
-    {
-        return $this->films;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFullname()
-    {
-        return $this->firstname . " " . $this->lastname;
     }
 }

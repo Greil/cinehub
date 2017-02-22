@@ -1,0 +1,88 @@
+<?php
+$title = 'Modification du film';
+$this->headTitle($title);
+?>
+
+    <h1>
+        <?= $this->escapeHtml($title) ?>
+    </h1>
+
+<?php
+/** @var \Zend\Form\Form $title */
+$title = $this->form->get('film')->get('title');
+$title->setAttribute('class', 'form-control');
+$title->setAttribute('placeholder', 'Titre');
+
+/** @var \Zend\Form\Form $genre */
+$genre = $this->form->get('film')->get('genre');
+$genre->setAttribute('class', 'form-control');
+
+/** @var \Zend\Form\Form $director */
+$director = $this->form->get('film')->get('director');
+$director->setAttribute('class', 'form-control');
+
+/** @var \Zend\Form\Form $note */
+$note = $this->form->get('film')->get('note');
+$note->setAttribute('class', 'form-control');
+$note->setAttribute('placeholder', 'Note (/5)');
+
+/** @var \Zend\Form\Form $releaseYear */
+$releaseYear = $this->form->get('film')->get('releaseYear');
+$releaseYear->setAttribute('class', 'form-control');
+$releaseYear->setAttribute('placeholder', 'Année de sortie');
+
+/** @var \Zend\Form\Form $synopsis */
+$synopsis = $this->form->get('film')->get('synopsis');
+$synopsis->setAttribute('class', 'form-control');
+$synopsis->setAttribute('placeholder', 'Synopsis');
+
+/** @var \Zend\Form\Form $submit */
+$submit = $this->form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$this->form->setAttribute('action', $this->url('film', ['action' => 'add']));
+$this->form->prepare();
+
+echo $this->form()->openTag($this->form);
+?>
+
+    <div class="form-group">
+        <?= $this->formLabel($title) ?>
+        <?= $this->formElement($title) ?>
+        <?= $this->formElementErrors()->render($title, ['class' => 'help-block']) ?>
+    </div>
+
+    <div class="form-group">
+        <?= $this->formLabel($genre) ?>
+        <?= $this->formElement($genre) ?>
+        <?= $this->formElementErrors()->render($genre, ['class' => 'help-block']) ?>
+    </div>
+
+    <div class="form-group">
+        <?= $this->formLabel($director) ?>
+        <?= $this->formElement($director) ?>
+        <?= $this->formElementErrors()->render($director, ['class' => 'help-block']) ?>
+    </div>
+
+    <div class="form-group">
+        <?= $this->formLabel($note) ?>
+        <?= $this->formElement($note) ?>
+        <?= $this->formElementErrors()->render($note, ['class' => 'help-block']) ?>
+    </div>
+
+    <div class="form-group">
+        <?= $this->formLabel($releaseYear) ?>
+        <?= $this->formElement($releaseYear) ?>
+        <?= $this->formElementErrors()->render($releaseYear, ['class' => 'help-block']) ?>
+    </div>
+
+    <div class="form-group">
+        <?= $this->formLabel($synopsis) ?>
+        <?= $this->formElement($synopsis) ?>
+        <?= $this->formElementErrors()->render($synopsis, ['class' => 'help-block']) ?>
+    </div>
+
+<?php
+echo $this->formSubmit($submit);
+echo $this->formHidden($this->form->get('film')->get('id'));
+echo $this->form()->closeTag();

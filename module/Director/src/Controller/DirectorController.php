@@ -10,10 +10,11 @@ namespace Director\Controller;
 
 use Director\Entity\Director;
 use Director\Form\AddDirectorForm;
+use Director\Form\EditDirectorForm;
 use Director\Service\DirectorService;
 use Zend\Http\Request;
-use Zend\Mvc\Console\View\ViewModel;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class DirectorController extends AbstractActionController
 {
@@ -23,12 +24,17 @@ class DirectorController extends AbstractActionController
     /** @var AddDirectorForm */
     private $addDirectorForm;
 
+    /** @var EditDirectorForm  */
+    private $editDirectorForm;
+
     public function __construct(
         DirectorService $directorService,
-        AddDirectorForm $addDirectorForm
+        AddDirectorForm $addDirectorForm,
+        EditDirectorForm $editDirectorForm
     ) {
-        $this->directorService = $directorService;
-        $this->addDirectorForm = $addDirectorForm;
+        $this->directorService  = $directorService;
+        $this->addDirectorForm  = $addDirectorForm;
+        $this->editDirectorForm = $editDirectorForm;
     }
 
     public function indexAction()
@@ -74,6 +80,25 @@ class DirectorController extends AbstractActionController
 
         /** @var Request $request */
         $request = $this->getRequest();
+        $this->editDirectorForm->bind($director);
+
+        if ($request->isPost()) {
+            $this->editDirectorForm->setData($request->getPost());
+
+            if ($this->editDirectorForm->isValid()) {
+                /** @var Director $director */
+                $director = $this->editDirectorForm->getData();
+                $this->directorService->edit($director);
+                return $this->redirect()->toRoute('director');
+            }
+        }
+
+        return new ViewModel(
+            [
+                'form' => $this->editDirectorForm,
+                'id'   => $director->getId()
+            ]
+        );
     }
 
     public function deleteAction()

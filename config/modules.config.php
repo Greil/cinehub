@@ -17,5 +17,7 @@ return [
     'DoctrineModule',
     'DoctrineORMModule',
     'Genre',
-    'Director'
+    'Director',
+    'Actor',
+    'Film',
 ];

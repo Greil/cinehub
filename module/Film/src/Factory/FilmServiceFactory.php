@@ -1,26 +1,26 @@
 <?php
 /**
  * User: remi_k
- * Date: 20/02/2017
- * Time: 15:03
+ * Date: 21/02/2017
+ * Time: 16:37
  */
 declare(strict_types = 1);
 
 
-namespace Director\Factory;
+namespace Film\Factory;
 
 
-use Director\Controller\DirectorController;
-use Director\Form\AddDirectorForm;
-use Director\Form\EditDirectorForm;
-use Director\Service\DirectorService;
+use Doctrine\ORM\EntityManager;
+use Film\Entity\Film;
+use Film\Repository\FilmRepository;
+use Film\Service\FilmService;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class DirectorControllerFactory implements FactoryInterface
+class FilmServiceFactory implements FactoryInterface
 {
 
     /**
@@ -38,13 +38,11 @@ class DirectorControllerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /** @var DirectorService $directorService */
-        $directorService = $container->get(DirectorService::class);
-        /** @var AddDirectorForm $addDirectorForm */
-        $addDirectorForm = $container->get('FormElementManager')->get(AddDirectorForm::class);
-        /** @var EditDirectorForm $editDirectorForm */
-        $editDirectorForm = $container->get('FormElementManager')->get(EditDirectorForm::class);
+        /** @var EntityManager $entityManager */
+        $entityManager = $container->get(EntityManager::class);
+        /** @var FilmRepository $filmRepository */
+        $filmRepository = $entityManager->getRepository(Film::class);
 
-        return new DirectorController($directorService, $addDirectorForm, $editDirectorForm);
+        return new FilmService($entityManager, $filmRepository);
     }
 }

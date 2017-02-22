@@ -1,5 +1,5 @@
 <?php
-$title = 'Ajouter un réalisateur';
+$title = 'Ajouter un acteur';
 $this->headTitle($title);
 ?>
 
@@ -9,17 +9,17 @@ $this->headTitle($title);
 
 <?php
 /** @var \Zend\Form\Form $firstname */
-$firstname = $this->form->get('director')->get('firstname');
+$firstname = $this->form->get('actor')->get('firstname');
 $firstname->setAttribute('class', 'form-control');
 $firstname->setAttribute('placeholder', 'Prénom');
 
 /** @var \Zend\Form\Form $lastname */
-$lastname = $this->form->get('director')->get('lastname');
+$lastname = $this->form->get('actor')->get('lastname');
 $lastname->setAttribute('class', 'form-control');
 $lastname->setAttribute('placeholder', 'Nom');
 
 /** @var \Zend\Form\Form $birthdate */
-$birthdate = $this->form->get('director')->get('birthDate');
+$birthdate = $this->form->get('actor')->get('birthDate');
 $birthdate->setAttribute('class', 'form-control');
 $birthdate->setAttribute('placeholder', 'Date de naissance');
 
@@ -27,7 +27,7 @@ $birthdate->setAttribute('placeholder', 'Date de naissance');
 $submit = $this->form->get('submit');
 $submit->setAttribute('class', 'btn btn-primary');
 
-$this->form->setAttribute('action', $this->url('director', ['action' => 'add']));
+$this->form->setAttribute('action', $this->url('actor', ['action' => 'add']));
 $this->form->prepare();
 
 echo $this->form()->openTag($this->form);
@@ -53,5 +53,5 @@ echo $this->form()->openTag($this->form);
 
 <?php
 echo $this->formSubmit($submit);
-echo $this->formHidden($this->form->get('director')->get('id'));
+echo $this->formHidden($this->form->get('actor')->get('id'));
 echo $this->form()->closeTag();

@@ -1,0 +1,40 @@
+<?php
+$title = 'Liste des acteurs';
+$this->headTitle($title);
+?>
+
+<h1>
+    <?= $this->escapeHtml($title) ?>
+</h1>
+
+<p>
+    <a href="<?= $this->url('actor', ['action' => 'add']) ?>">
+        Ajouter un acteur
+    </a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Date de naissance</th>
+    </tr>
+    <?php foreach($this->actors as $actor) : ?>
+        <?php /** @var \Actor\Entity\Actor $actor */ ?>
+        <tr>
+            <td>
+                <?= $this->escapeHtml($actor->getFirstname()) ?>
+            </td>
+            <td>
+                <?= $this->escapeHtml($actor->getLastname()) ?>
+            </td>
+            <td>
+                <?= $this->escapeHtml($actor->getBirthDate()->format('d/m/Y')) ?>
+            </td>
+            <td>
+                <a href="<?= $this->url('actor', ['action' => 'edit', 'id' => $actor->getId()]) ?>">Modifier</a>
+                <a href="<?= $this->url('actor', ['action' => 'delete', 'id' => $actor->getId()]) ?>">Supprimer</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>

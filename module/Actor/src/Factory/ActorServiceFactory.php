@@ -2,25 +2,25 @@
 /**
  * User: remi_k
  * Date: 20/02/2017
- * Time: 15:03
+ * Time: 14:52
  */
 declare(strict_types = 1);
 
 
-namespace Director\Factory;
+namespace Actor\Factory;
 
 
-use Director\Controller\DirectorController;
-use Director\Form\AddDirectorForm;
-use Director\Form\EditDirectorForm;
-use Director\Service\DirectorService;
+use Actor\Entity\Actor;
+use Actor\Repository\ActorRepository;
+use Actor\Service\ActorService;
+use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class DirectorControllerFactory implements FactoryInterface
+class ActorServiceFactory implements FactoryInterface
 {
 
     /**
@@ -38,13 +38,11 @@ class DirectorControllerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /** @var DirectorService $directorService */
-        $directorService = $container->get(DirectorService::class);
-        /** @var AddDirectorForm $addDirectorForm */
-        $addDirectorForm = $container->get('FormElementManager')->get(AddDirectorForm::class);
-        /** @var EditDirectorForm $editDirectorForm */
-        $editDirectorForm = $container->get('FormElementManager')->get(EditDirectorForm::class);
+        /** @var EntityManager $entityManager */
+        $entityManager = $container->get(EntityManager::class);
+        /** @var ActorRepository $actorRepository */
+        $actorRepository = $entityManager->getRepository(Actor::class);
 
-        return new DirectorController($directorService, $addDirectorForm, $editDirectorForm);
+        return new ActorService($entityManager, $actorRepository);
     }
 }

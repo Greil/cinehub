@@ -14,7 +14,7 @@
 return [
     'db' => [
         'driver'   => 'Pdo',
-        'dsn'      => 'mysql:dbname=cinehub;host=localhost',
+        'dsn'      => 'mysql:dbname=cinehub;host=192.168.30.5',
         'username' => 'root',
         'password' => 'root'
     ],
@@ -24,7 +24,7 @@ return [
             'orm_default' => [
                 'driverClass' => \Doctrine\DBAL\Driver\PDOMySql\Driver::class,
                 'params'      => [
-                    'host'          => 'localhost',
+                    'host'          => '192.168.30.5',
                     'user'          => 'root',
                     'password'      => 'root',
                     'dbname'        => 'cinehub',

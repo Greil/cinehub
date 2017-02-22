@@ -1,26 +1,26 @@
 <?php
 /**
  * User: remi_k
- * Date: 20/02/2017
- * Time: 15:03
+ * Date: 22/02/2017
+ * Time: 10:12
  */
 declare(strict_types = 1);
 
 
-namespace Director\Factory;
+namespace Film\Factory;
 
 
-use Director\Controller\DirectorController;
-use Director\Form\AddDirectorForm;
-use Director\Form\EditDirectorForm;
-use Director\Service\DirectorService;
+use Film\Controller\FilmController;
+use Film\Form\AddFilmForm;
+use Film\Form\EditFilmForm;
+use Film\Service\FilmService;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class DirectorControllerFactory implements FactoryInterface
+class FilmControllerFactory implements FactoryInterface
 {
 
     /**
@@ -38,13 +38,13 @@ class DirectorControllerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /** @var DirectorService $directorService */
-        $directorService = $container->get(DirectorService::class);
-        /** @var AddDirectorForm $addDirectorForm */
-        $addDirectorForm = $container->get('FormElementManager')->get(AddDirectorForm::class);
-        /** @var EditDirectorForm $editDirectorForm */
-        $editDirectorForm = $container->get('FormElementManager')->get(EditDirectorForm::class);
+        /** @var FilmService $filmService */
+        $filmService = $container->get(FilmService::class);
+        /** @var AddFilmForm $addFilmForm */
+        $addFilmForm = $container->get('FormElementManager')->get(AddFilmForm::class);
+        /** @var EditFilmForm $editFilmForm */
+        $editFilmForm = $container->get('FormElementManager')->get(EditFilmForm::class);
 
-        return new DirectorController($directorService, $addDirectorForm, $editDirectorForm);
+        return new FilmController($filmService, $addFilmForm, $editFilmForm);
     }
 }

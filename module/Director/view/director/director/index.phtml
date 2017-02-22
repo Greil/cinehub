@@ -29,7 +29,7 @@ $this->headTitle($title);
                 <?= $this->escapeHtml($director->getLastname()) ?>
             </td>
             <td>
-                <?= $this->escapeHtml($director->getBirthDate()) ?>
+                <?= $this->escapeHtml($director->getBirthDate()->format('d/m/Y')) ?>
             </td>
             <td>
                 <a href="<?= $this->url('director', ['action' => 'edit', 'id' => $director->getId()]) ?>">Modifier</a>

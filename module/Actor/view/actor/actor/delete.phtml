@@ -1,0 +1,21 @@
+<?php
+$title = 'Suppression de l\'acteur';
+$url   = $this->url('actor', ['action' => 'delete', 'id' => $this->id]);
+$this->headTitle($title);
+?>
+
+<h1>
+    <?= $this->escapeHtml($title) ?>
+</h1>
+
+<p>
+    Êtes-vous sûr de vouloir supprimer l'acteur "<?= $this->escapeHtml($this->genre->getLabel()) ?>" (sur la liste hein, pas dans la vraie vie) ?
+</p>
+
+<form action="<?= $url ?>" method="post">
+    <div class="form-group">
+        <input type="hidden" name="id" value="<?= $this->actor->getId() ?>"/>
+        <input type="submit" name="del" class="btn btn-danger" value="Oui"/>
+        <input type="submit" name="del" class="btn btn-success" value="Non"/>
+    </div>
+</form>

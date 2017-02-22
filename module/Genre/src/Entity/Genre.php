@@ -33,6 +33,11 @@ class Genre
      */
     private $label;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Film\Entity\Film", mappedBy="genre")
+     */
+    private $films;
+
 
 
     /**
@@ -65,5 +70,10 @@ class Genre
     public function setLabel(string $label)
     {
         $this->label = $label;
+    }
+
+    public function getFilms()
+    {
+        return $this->films;
     }
 }
